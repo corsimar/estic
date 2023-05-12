@@ -1,0 +1,131 @@
+.header {
+  width: 100%;
+  height: 70px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.13);
+  display: flex;
+}
+
+.app-title {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-title p {
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+  color: #cc3b90;
+  cursor: pointer;
+}
+
+.navigation {
+  width: 88%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.sign-in {
+  background-color: #cc3b90;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 24px 6px 24px;
+  color: white;
+  font-family: Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.sign-in:hover {
+  background-color: #db50a1;
+  transition-duration: 0.1s;
+}
+
+.sign-up {
+  background-color: white;
+  border: 1px solid #cc3b90;
+  border-radius: 12px;
+  padding: 6px 24px 6px 24px;
+  color: #cc3b90;
+  font-family: Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.sign-up:hover {
+  background-color: rgb(245, 245, 245);
+  transition-duration: 0.1s;
+}
+
+.info-area {
+  width: 100%;
+  height: 700px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.circle-area {
+  width: 256px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.circle {
+  width: 256px;
+  height: 256px;
+  border-radius: 100%;
+  background-color: #cc3b90;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle img {
+  width: 128px;
+  height: 128px;
+}
+
+.circle-area p {
+  font-family: Verdana, sans-serif;
+  color: #cc3b90;
+  text-align: center;
+}
+
+.get-started {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.get-started button {
+  width: 200px;
+  height: 50px;
+  background-color: #cc3b90;
+  color: white;
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.get-started button:hover {
+  background-color: #dd65ab;
+  transition-duration: 0.2s;
+}
+
+.profile-photo {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  background-image: url("/assets/user.png");
+  background-size: contain;
+  cursor: pointer;
+}

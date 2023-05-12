@@ -1,0 +1,76 @@
+<div class="header">
+  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
+  <div class="navigation">
+    <button class="sign-in" (click)="goToSignIn()">Sign in</button>
+  </div>
+</div>
+<div class="container">
+  <form
+    nz-form
+    [formGroup]="validateForm"
+    class="login-form"
+    (ngSubmit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input a valid email!">
+        <nz-input-group nzPrefixIcon="mail">
+          <input
+            type="text"
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control
+        nzErrorTip="Password must contain at least 8 characters long, an uppercase, an lowercase, a digit and a special character!"
+      >
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Password"
+            (keyup)="passwordChange()"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Passwords do not match!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-group nzPrefixIcon="heart" style="width: 250px">
+          <nz-select
+            formControlName="gender"
+            nzPlaceHolder="Gender"
+            (ngModelChange)="(null)"
+          >
+            <nz-option nzValue="male" nzLabel="Male"></nz-option>
+            <nz-option nzValue="female" nzLabel="Female"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [disabled]="!validForm()"
+    >
+      Sign up
+    </button>
+    <p>Already have an account? <a (click)="goToSignIn()">Sign in here</a></p>
+  </form>
+</div>

@@ -1,0 +1,28 @@
+.trait {
+  width: 128px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.image {
+  width: 28px;
+  height: 28px;
+}
+
+.text-area {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-area p {
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, sans-serif;
+  color: #cc3b90;
+}

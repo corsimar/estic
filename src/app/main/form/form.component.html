@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
+  <div class="navigation">
+    <div
+      [hidden]="!isSignedIn()"
+      class="profile-photo"
+      (click)="goToProfile()"
+    ></div>
+  </div>
+</div>
+<div class="info-text">
+  <h1><b>Complete this form to find a matching person </b></h1>
+</div>
+<div class="form">
+  <nz-select
+    style="width: 250px"
+    nzAllowClear
+    nzPlaceHolder="Select gender"
+    (ng-change)="selectGender($event)"
+  >
+    <nz-option nzValue="male" nzLabel="Male"></nz-option>
+    <nz-option nzValue="female" nzLabel="Female"></nz-option>
+  </nz-select>
+</div>
+<div class="next-btn">
+  <button (click)="advance()">Next</button>
+</div>
