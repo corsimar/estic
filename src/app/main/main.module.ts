@@ -15,6 +15,18 @@ import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormComponent } from './form/form.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { MatchesComponent } from './matches/matches.component';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ChatComponent } from './chat/chat.component';
+import { ChatmessageComponent } from './chatmessage/chatmessage.component';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { MessageComponent } from './message/message.component';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 @NgModule({
   declarations: [
@@ -22,6 +34,11 @@ import { FormComponent } from './form/form.component';
     ProfileComponent,
     TraitComponent,
     FormComponent,
+    MatchesComponent,
+    ChatComponent,
+    ChatmessageComponent,
+    MessageComponent,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +53,14 @@ import { FormComponent } from './form/form.component';
     NzPopoverModule,
     NzModalModule,
     FormsModule,
+    NzIconModule,
+    NzBadgeModule,
+    NzListModule,
+    NzMessageModule,
+    NzTypographyModule,
+    NzToolTipModule,
+    NzCarouselModule,
   ],
+  exports: [NavbarComponent],
 })
 export class MainModule {}

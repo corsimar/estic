@@ -1,0 +1,36 @@
+<h1 class="info-text" [hidden]="chats != 0">No chats started yet!</h1>
+<div class="container" [hidden]="chats == 0">
+  <div class="chat-box">
+    <div class="people">
+      <app-chatmessage
+        *ngFor="let element of chatInfo; let i = index"
+        [name]="names[i]"
+        [chatInfo]="chatInfo[i]"
+        [profilePhotoURL]="profilePhotos[i]"
+        [background]="setSelected(chatInfo[i].fromId, chatInfo[i].toId)"
+        [read]="read[i]"
+        (click)="clickChat(chatInfo[i].fromId, chatInfo[i].toId, i)"
+      ></app-chatmessage>
+    </div>
+    <div class="text-area" [hidden]="messages.length == 0">
+      <div class="chat-area">
+        <app-message
+          *ngFor="let element of messages; let i = index"
+          [message]="messages[i].text"
+          [expeditorId]="messages[i].fromId"
+          [dateSent]="messages[i].dateSent"
+        ></app-message>
+      </div>
+      <div class="write-area" [hidden]="selectedChat == -1">
+        <input
+          nz-input
+          placeholder="Write your message here"
+          [(ngModel)]="inputValue"
+        />
+        <div class="send-message" (click)="sendMessage()">
+          <span nz-icon nzType="send" nzTheme="outline"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

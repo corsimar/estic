@@ -1,0 +1,63 @@
+<div class="header">
+  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
+  <div class="navigation">
+    <button [hidden]="isSignedIn()" class="sign-up" (click)="goToSignUp()">
+      Sign up
+    </button>
+    <button [hidden]="isSignedIn()" class="sign-in" (click)="goToSignIn()">
+      Sign in
+    </button>
+    <nz-badge
+      [nzCount]="newMessages"
+      [nzOverflowCount]="9"
+      [hidden]="!isSignedIn()"
+      (click)="goToChat()"
+    >
+      <img
+        src="/assets/chat.png"
+        width="24"
+        height="24"
+        style="cursor: pointer"
+      />
+    </nz-badge>
+    <nz-badge
+      [nzCount]="matchesAvailable"
+      [hidden]="!isSignedIn()"
+      (click)="goToMatchForm()"
+    >
+      <img
+        src="/assets/heart.png"
+        width="24"
+        height="24"
+        style="cursor: pointer"
+      />
+    </nz-badge>
+    <div
+      nz-button
+      nz-popover
+      nzPopoverTrigger="click"
+      nzPopoverTitle="{{ name }}"
+      [nzPopoverContent]="contentTemplate"
+      nzPopoverPlacement="bottom"
+      class="profile-photo"
+      id="navPhoto"
+      [hidden]="!isSignedIn()"
+    ></div>
+  </div>
+</div>
+<ng-template #contentTemplate>
+  <div [hidden]="!isSignedIn()">
+    <p class="account-option" (click)="goToProfile()">
+      <span nz-icon nzType="profile"></span>
+      View profile
+    </p>
+    <p class="account-option" (click)="goToMatches()">
+      <span nz-icon nzType="heart" nzTheme="outline"></span>
+      Matches
+    </p>
+    <p class="account-option" (click)="signOut()">
+      <span nz-icon nzType="logout"></span>
+      Sign out
+    </p>
+  </div>
+</ng-template>

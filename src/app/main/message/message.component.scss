@@ -1,0 +1,26 @@
+.message-area {
+  width: 100%;
+  display: flex;
+}
+
+.message {
+  width: fit-content;
+  min-width: 8%;
+  max-width: 70%;
+  height: fit-content;
+  background-color: #cc3b90;
+  border-radius: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 8px;
+}
+
+.message p {
+  margin: 0;
+}
+
+.text {
+  color: white;
+  font-family: Verdana, sans-serif;
+  word-wrap: break-word;
+}

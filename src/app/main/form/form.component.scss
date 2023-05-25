@@ -1,45 +1,3 @@
-.header {
-  width: 100%;
-  height: 70px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.13);
-  display: flex;
-}
-
-.app-title {
-  width: 10%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.app-title p {
-  font-family: Verdana, sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  margin: 0;
-  color: #cc3b90;
-  cursor: pointer;
-}
-
-.navigation {
-  width: 88%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  column-gap: 24px;
-}
-
-.profile-photo {
-  width: 42px;
-  height: 42px;
-  border-radius: 100%;
-  background-image: url("/assets/user.png");
-  background-size: contain;
-  cursor: pointer;
-}
-
 .info-text {
   width: 100%;
   height: 70px;
@@ -54,17 +12,32 @@
   font-family: Verdana, sans-serif;
 }
 
+.tip-message {
+  width: 100%;
+  text-align: center;
+  color: #cc3b90;
+  font-family: Verdana, sans-serif;
+  margin-top: 150px;
+}
+
+.error-message {
+  width: 100%;
+  text-align: center;
+  color: #cc3b90;
+  font-family: Verdana, sans-serif;
+  margin-top: 64px;
+}
+
 .form {
   width: 100%;
-  height: 300px;
+  height: auto;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
 }
 
 .next-btn {
   width: 100%;
-  margin-top: 64px;
+  margin-top: 12px;
   display: flex;
   justify-content: center;
 }
@@ -83,4 +56,22 @@
 .next-btn button:hover {
   background-color: #dd65ab;
   transition-duration: 0.2s;
+}
+
+form > * {
+  width: 250px;
+}
+
+.personality-area {
+  width: 50%;
+  margin-left: 30%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  justify-content: center;
+}
+
+.personality-area > * {
+  flex: 1 1 33.33%;
 }

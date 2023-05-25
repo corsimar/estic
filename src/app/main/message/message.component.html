@@ -1,0 +1,13 @@
+<div class="message-area" [style]="getFlexStyle()">
+  <div
+    class="message"
+    [style]="getBackgroundColor()"
+    [nzTooltipTitle]="dateSent"
+    [nzTooltipPlacement]="getTooltipPlacement()"
+    [nzTooltipColor]="tooltipColor"
+    nz-button
+    nz-tooltip
+  >
+    <p class="text">{{ message }}</p>
+  </div>
+</div>

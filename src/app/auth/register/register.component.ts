@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   validateForm: FormGroup;
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +33,24 @@ export class RegisterComponent implements OnInit {
   buildForm(): void {
     this.validateForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
+      lastName: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          this.nameValidator(),
+        ],
+      ],
+      firstName: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          this.nameValidator(),
+        ],
+      ],
       password: [
         null,
         [
@@ -52,12 +71,24 @@ export class RegisterComponent implements OnInit {
     return this.validateForm.get('email') as FormControl;
   }
 
+  get lastName(): FormControl {
+    return this.validateForm.get('lastName') as FormControl;
+  }
+
+  get firstName(): FormControl {
+    return this.validateForm.get('firstName') as FormControl;
+  }
+
   get password(): FormControl {
     return this.validateForm.get('password') as FormControl;
   }
 
   get confirmPassword(): FormControl {
     return this.validateForm.get('confirmPassword') as FormControl;
+  }
+
+  get gender(): FormControl {
+    return this.validateForm.get('gender') as FormControl;
   }
 
   passwordMatchValidator(): ValidatorFn {
@@ -74,20 +105,28 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  nameValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      if (!value) {
+        return null;
+      }
+
+      const hasOnlyLetters = /^[a-zA-Z\s-]+$/.test(value);
+
+      const nameValid = hasOnlyLetters;
+
+      return !nameValid ? { nameValid: true } : null;
+    };
+  }
+
   passwordChange() {
     if (this.password.value == this.confirmPassword.value) {
       this.confirmPassword.setErrors(null);
       return;
     }
     this.confirmPassword.setErrors({ incorrect: true });
-  }
-
-  goHome() {
-    this.router.navigate(['/app/index']);
-  }
-
-  goToSignUp() {
-    this.router.navigate(['/auth/register']);
   }
 
   goToSignIn() {
@@ -103,30 +142,25 @@ export class RegisterComponent implements OnInit {
 
     const payload = {
       email: this.email.value,
+      lastName: this.lastName.value,
+      firstName: this.firstName.value,
       password: this.password.value,
+      gender: this.gender.value,
     };
 
     this.authService.register(payload).subscribe({
       next: (response) => {
-        console.log('Register successful!');
-        window.localStorage['token'] = response.token;
+        const resp = JSON.parse(response);
+        window.localStorage['token'] = resp.token;
+        window.localStorage['userId'] = resp.userId;
+        window.sessionStorage['session'] = true;
+        window.sessionStorage.setItem('refresh', 'true');
         this.router.navigate(['/app/index']);
       },
       error: (response) => {
-        console.log('Error!');
+        this.error = response.error;
       },
     });
-
-    /*this.authService.register(payload).subscribe({
-      next: (response) => {
-        console.log(response);
-        window.localStorage['token'] = response.token;
-        this.router.navigate(['/app/index']);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });*/
   }
 }
 

@@ -1,13 +1,3 @@
-<div class="header">
-  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
-  <div class="navigation">
-    <div
-      [hidden]="!isSignedIn()"
-      class="profile-photo"
-      (click)="goToProfile()"
-    ></div>
-  </div>
-</div>
 <h1 class="info-text" [innerHTML]="infoMessage"></h1>
 <div [hidden]="profileCompleted" class="start-profile">
   <button [hidden]="setup" (click)="advance()">Build profile</button>
@@ -69,12 +59,15 @@
           nzPlaceHolder="Eyes color"
           (ngModelChange)="(null)"
         >
-          <nz-option nzValue="null" nzLabel="Prefer not to mention"></nz-option>
-          <nz-option nzValue="brown" nzLabel="Brown"></nz-option>
-          <nz-option nzValue="blue" nzLabel="Blue"></nz-option>
-          <nz-option nzValue="green" nzLabel="Green"></nz-option>
-          <nz-option nzValue="gray" nzLabel="Gray"></nz-option>
-          <nz-option nzValue="hazel" nzLabel="Hazel"></nz-option>
+          <nz-option
+            nzValue="not mentioned"
+            nzLabel="Prefer not to mention"
+          ></nz-option>
+          <nz-option nzValue="Brown" nzLabel="Brown"></nz-option>
+          <nz-option nzValue="Blue" nzLabel="Blue"></nz-option>
+          <nz-option nzValue="Green" nzLabel="Green"></nz-option>
+          <nz-option nzValue="Gray" nzLabel="Gray"></nz-option>
+          <nz-option nzValue="Hazel" nzLabel="Hazel"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -86,11 +79,14 @@
           nzPlaceHolder="Hair color"
           (ngModelChange)="(null)"
         >
-          <nz-option nzValue="null" nzLabel="Prefer not to mention"></nz-option>
-          <nz-option nzValue="blonde" nzLabel="Blonde"></nz-option>
-          <nz-option nzValue="brunette" nzLabel="Brunette"></nz-option>
-          <nz-option nzValue="red" nzLabel="Red"></nz-option>
-          <nz-option nzValue="black" nzLabel="Black"></nz-option>
+          <nz-option
+            nzValue="not mentioned"
+            nzLabel="Prefer not to mention"
+          ></nz-option>
+          <nz-option nzValue="Blonde" nzLabel="Blonde"></nz-option>
+          <nz-option nzValue="Brunette" nzLabel="Brunette"></nz-option>
+          <nz-option nzValue="Red" nzLabel="Red"></nz-option>
+          <nz-option nzValue="Black" nzLabel="Black"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -102,9 +98,12 @@
           nzPlaceHolder="Tattoos"
           (ngModelChange)="(null)"
         >
-          <nz-option nzValue="null" nzLabel="Prefer not to mention"></nz-option>
-          <nz-option nzValue="yes" nzLabel="Yes"></nz-option>
-          <nz-option nzValue="no" nzLabel="No"></nz-option>
+          <nz-option
+            nzValue="Prefer not no mention"
+            nzLabel="Prefer not to mention"
+          ></nz-option>
+          <nz-option nzValue="Yes" nzLabel="Yes"></nz-option>
+          <nz-option nzValue="No" nzLabel="No"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -122,22 +121,16 @@
   <nz-transfer
     [nzDataSource]="hobbiesList"
     [nzTitles]="['Hobbies']"
-    (nzSelectChange)="select($event)"
-    (nzChange)="change($event)"
     style="font-family: Verdana, sans-serif"
   ></nz-transfer>
   <nz-transfer
     [nzDataSource]="sportsList"
     [nzTitles]="['Sports']"
-    (nzSelectChange)="select($event)"
-    (nzChange)="change($event)"
     style="font-family: Verdana, sans-serif"
   ></nz-transfer>
   <nz-transfer
     [nzDataSource]="musicList"
     [nzTitles]="['Music']"
-    (nzSelectChange)="select($event)"
-    (nzChange)="change($event)"
     style="font-family: Verdana, sans-serif"
   ></nz-transfer>
 </div>
@@ -189,7 +182,7 @@
     <button (click)="advance()">Next</button>
   </div>
 </div>
-<div class="profile">
+<div class="profile" [hidden]="!profileCompleted">
   <div class="profile-photo-area">
     <input
       type="file"
@@ -198,37 +191,65 @@
       id="photoUpdate"
       style="display: none"
       (change)="updateProfile($event)"
+      [disabled]="!ownProfile()"
     />
     <label for="photoUpdate"
-      ><div class="photo" id="profilePhoto" style="cursor: pointer"></div
+      ><div class="photo" id="profilePhoto" [style]="getCursor()"></div
     ></label>
   </div>
+  <p class="user-name" (click)="showModal(0)" [style]="getCursor()">
+    {{ userName }}
+  </p>
   <div class="traits-area">
     <div class="trait-area">
       <div class="trait-title"><p>Physical Traits</p></div>
       <div class="traits">
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/age.png" width="36px" height="36px" />
+            <img
+              src="/assets/Profile/age.png"
+              width="36px"
+              height="36px"
+              (click)="showModal(1)"
+              [style]="getCursor()"
+            />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(0)" id="age">21</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(1)" id="age">
+              {{ ageText }}
+            </p>
           </div>
         </div>
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/height.png" width="36px" height="36px" />
+            <img
+              src="/assets/Profile/height.png"
+              width="36px"
+              height="36px"
+              (click)="showModal(2)"
+              [style]="getCursor()"
+            />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(1)" id="height">175 cm</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(2)" id="height">
+              {{ heightText }} cm
+            </p>
           </div>
         </div>
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/weight.png" width="36px" height="36px" />
+            <img
+              src="/assets/Profile/weight.png"
+              width="36px"
+              height="36px"
+              (click)="showModal(1)"
+              [style]="getCursor()"
+            />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(2)" id="weight">77 kg</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(3)" id="weight">
+              {{ weightText }} kg
+            </p>
           </div>
         </div>
         <div class="trait">
@@ -237,10 +258,14 @@
               src="/assets/Profile/eyecolor.png"
               width="36px"
               height="36px"
+              (click)="showModal(4)"
+              [style]="getCursor()"
             />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(3)" id="eyeColor">Blue</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(4)" id="eyeColor">
+              {{ eyeColorText }}
+            </p>
           </div>
         </div>
         <div class="trait">
@@ -249,31 +274,43 @@
               src="/assets/Profile/haircolor.png"
               width="36px"
               height="36px"
+              (click)="showModal(5)"
+              [style]="getCursor()"
             />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(4)" id="hairColor">Brunette</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(5)" id="hairColor">
+              {{ hairColorText }}
+            </p>
           </div>
         </div>
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/tattoo.png" width="36px" height="36px" />
+            <img
+              src="/assets/Profile/tattoo.png"
+              width="36px"
+              height="36px"
+              (click)="showModal(6)"
+              [style]="getCursor()"
+            />
           </div>
-          <div class="trait-text">
-            <p nz-button (click)="showModal(5)" id="tattoos">Not mentioned</p>
+          <div class="trait-text" [style]="getCursor()">
+            <p nz-button (click)="showModal(6)" id="tattoos">
+              {{ tattooText }}
+            </p>
           </div>
         </div>
       </div>
     </div>
     <div class="trait-area">
       <div class="trait-title"><p>Personality Traits</p></div>
-      <div class="traits">
-        <div class="trait">
-          <div class="trait-image">
-            <img src="/assets/Profile/age.png" width="36px" height="36px" />
-          </div>
-          <div class="trait-text"><p>21</p></div>
-        </div>
+      <div class="traits" style="gap: 0px">
+        <app-trait
+          *ngFor="let element of userPersonalityTraits; let i = index"
+          [text]="userPersonalityTraits[i]"
+          (click)="showModal(7)"
+          [cursor]="getCursor()"
+        ></app-trait>
       </div>
     </div>
     <div class="trait-area">
@@ -281,14 +318,23 @@
       <div class="traits">
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/hobbies.png" width="36px" height="36px" />
+            <img
+              nz-button
+              nz-popover
+              nzPopoverTitle="Hobbies"
+              [nzPopoverContent]="hobbiesTemplate"
+              nzPopoverTrigger="click"
+              src="/assets/Profile/hobbies.png"
+              width="36"
+              height="36"
+            />
           </div>
           <div class="trait-text">
             <p
               nz-button
               nz-popover
               nzPopoverTitle="Hobbies"
-              [nzPopoverContent]="contentTemplate"
+              [nzPopoverContent]="hobbiesTemplate"
               nzPopoverTrigger="click"
             >
               View list
@@ -297,14 +343,14 @@
         </div>
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/sports.png" width="36px" height="36px" />
+            <img src="/assets/Profile/sports.png" width="36" height="36" />
           </div>
           <div class="trait-text">
             <p
               nz-button
               nz-popover
               nzPopoverTitle="Sports"
-              [nzPopoverContent]="contentTemplate"
+              [nzPopoverContent]="sportsTemplate"
               nzPopoverTrigger="click"
             >
               View list
@@ -313,14 +359,14 @@
         </div>
         <div class="trait">
           <div class="trait-image">
-            <img src="/assets/Profile/music.png" width="36px" height="36px" />
+            <img src="/assets/Profile/music.png" width="36" height="36" />
           </div>
           <div class="trait-text">
             <p
               nz-button
               nz-popover
               nzPopoverTitle="Music"
-              [nzPopoverContent]="contentTemplate"
+              [nzPopoverContent]="musicTemplate"
               nzPopoverTrigger="click"
             >
               View list
@@ -332,33 +378,56 @@
     <div class="trait-area">
       <div class="trait-title"><p>Contact</p></div>
       <div class="traits">
-        <div class="trait">
+        <div class="trait" [hidden]="!instagramValid()">
           <div class="trait-image">
             <img
               src="/assets/Profile/instagram.png"
               width="36px"
               height="36px"
+              (click)="showModal(8)"
+              [style]="getCursor()"
             />
           </div>
-          <div class="trait-text"><p>mario.cristian2002</p></div>
+          <div class="trait-text" [style]="getCursor()">
+            <p (click)="showModal(8)">{{ userInstagram }}</p>
+          </div>
         </div>
-        <div class="trait">
+        <div class="trait" [hidden]="!facebookValid()">
           <div class="trait-image">
             <img
               src="/assets/Profile/facebook.png"
               width="36px"
               height="36px"
+              (click)="showModal(8)"
+              [style]="getCursor()"
             />
           </div>
-          <div class="trait-text"><p>Mario Cristian</p></div>
-        </div>
-        <div class="trait">
-          <div class="trait-image">
-            <img src="/assets/Profile/twitter.png" width="36px" height="36px" />
+          <div class="trait-text" [style]="getCursor()">
+            <p (click)="showModal(9)">{{ userFacebook }}</p>
           </div>
-          <div class="trait-text"><p>mariocristian21</p></div>
+        </div>
+        <div class="trait" [hidden]="!twitterValid()">
+          <div class="trait-image">
+            <img
+              src="/assets/Profile/twitter.png"
+              width="36px"
+              height="36px"
+              (click)="showModal(10)"
+              [style]="getCursor()"
+            />
+          </div>
+          <div class="trait-text" [style]="getCursor()">
+            <p (click)="showModal(10)">{{ userTwitter }}</p>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div [hidden]="!writeFirstMessage" class="next-btn-area">
+    <div class="next-btn">
+      <button (click)="showModal(11)" [hidden]="!writeFirstMessage">
+        Send message
+      </button>
     </div>
   </div>
 </div>
@@ -374,28 +443,111 @@
   ></nz-progress>
 </div>
 
-<ng-template #contentTemplate>
+<ng-template #hobbiesTemplate>
   <div>
-    <p>Content</p>
-    <p>Content</p>
+    <p
+      class="leisure-selected"
+      *ngFor="let element of profileSelectedHobbies; let i = index"
+      (click)="deselectHobby(i)"
+      [style]="getCursor()"
+    >
+      {{ profileSelectedHobbies[i] }}
+    </p>
+    <p
+      class="leisure-unselected"
+      *ngFor="let element of profileHobbies; let i = index"
+      (click)="selectHobby(i)"
+      [hidden]="!ownProfile()"
+    >
+      {{ profileHobbies[i] }}
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #sportsTemplate>
+  <div>
+    <p
+      class="leisure-selected"
+      *ngFor="let element of profileSelectedSports; let i = index"
+      (click)="deselectSport(i)"
+      [style]="getCursor()"
+    >
+      {{ profileSelectedSports[i] }}
+    </p>
+    <p
+      class="leisure-unselected"
+      *ngFor="let element of profileSports; let i = index"
+      (click)="selectSport(i)"
+      [hidden]="!ownProfile()"
+    >
+      {{ profileSports[i] }}
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #musicTemplate>
+  <div>
+    <p
+      class="leisure-selected"
+      *ngFor="let element of profileSelectedMusic; let i = index"
+      (click)="deselectMusic(i)"
+      [style]="getCursor()"
+    >
+      {{ profileSelectedMusic[i] }}
+    </p>
+    <p
+      class="leisure-unselected"
+      *ngFor="let element of profileMusic; let i = index"
+      (click)="selectMusic(i)"
+      [hidden]="!ownProfile()"
+    >
+      {{ profileMusic[i] }}
+    </p>
   </div>
 </ng-template>
 
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="Edit your profile"
+  [nzTitle]="modalTitle"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
 >
   <ng-container *nzModalContent>
-    <input [hidden]="editSelect" type="text" (keyup)="editProfile($event)" />
-    <select [hidden]="!editSelect" (change)="editProfile($event)">
-      <option
-        *ngFor="let element of selectList; let i = index"
-        style="font-family: Verdana, sans-serif"
-      >
-        {{ selectList[i] }}
-      </option>
-    </select>
+    <input
+      [hidden]="!firstInputNeeded"
+      type="text"
+      (change)="onChangeFirstInput($event)"
+      [value]="firstInputValue"
+      [placeholder]="firstPlaceholder"
+    />
+    <input
+      [hidden]="!secondInputNeeded"
+      type="text"
+      (change)="onChangeSecondInput($event)"
+      [value]="secondInputValue"
+      [placeholder]="secondPlaceholder"
+      style="margin-left: 12px"
+    />
+    <form [formGroup]="selectForm" [hidden]="!editSelect">
+      <select formControlName="selectedItem" (change)="editProfile($event)">
+        <option
+          *ngFor="let element of selectList; let i = index"
+          style="font-family: Verdana, sans-serif"
+          [value]="selectList[i]"
+        >
+          {{ selectList[i] }}
+        </option>
+      </select>
+    </form>
+    <div class="change-traits" [hidden]="!changePersonality">
+      <app-trait
+        *ngFor="let trait of personalityTraits; let i = index"
+        [index]="i"
+        [id]="i"
+        [selected]="selectedPersonalityTraits[i]"
+        (click)="selectPersonality($event)"
+        style="width: 200px"
+      ></app-trait>
+    </div>
   </ng-container>
 </nz-modal>

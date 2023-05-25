@@ -1,62 +1,11 @@
-<div class="header">
-  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
-  <div class="navigation">
-    <button [hidden]="isSignedIn()" class="sign-up" (click)="goToSignUp()">
-      Sign up
-    </button>
-    <button [hidden]="isSignedIn()" class="sign-in" (click)="goToSignIn()">
-      Sign in
-    </button>
-    <div
-      [hidden]="!isSignedIn()"
-      class="profile-photo"
-      (click)="goToProfile()"
-    ></div>
-  </div>
-</div>
-<div class="info-area">
-  <div class="circle-area">
-    <div class="circle">
-      <img src="/assets/algorithm.png" />
+<nz-carousel class="carousel" [nzEffect]="effect" [nzDotPosition]="dotPosition">
+  <div nz-carousel-content *ngFor="let element of image; let i = index">
+    <div class="carousel-content">
+      <img [src]="element" width="128" height="128" />
+      <p [innerHTML]="text[i]"></p>
     </div>
-    <p>
-      A complex ALGORITHM<br />
-      to help you find matching people<br />
-      and it makes it really easy for you<br />
-      We know how hard it is to find<br />
-      someone that connects with you<br />
-      so we came up with a solution
-    </p>
   </div>
-  <div class="circle-area">
-    <div class="circle">
-      <img src="/assets/relationship.png" />
-    </div>
-    <p>
-      You have 1 MATCH per day<br />
-      This means you can look for a<br />
-      match once per calendaristic day<br />
-      Don't rush into the first person you<br />
-      find and don't stress out if you can't<br />
-      find someone good enough in the first day
-    </p>
-  </div>
-  <div class="circle-area">
-    <div class="circle">
-      <img src="/assets/engagement.png" />
-    </div>
-    <p>
-      ATTRACT appropiate people by<br />
-      building an attractive profile<br />
-      to catch other's eyes <br />
-      You can also be another's<br />
-      person match, so take your<br />
-      time to build a worthful profile<br />
-      And remember, BE YOURSELF!<br />
-      in order to get appropiate matches
-    </p>
-  </div>
-</div>
+</nz-carousel>
 <div class="get-started">
   <button>Get Started</button>
 </div>

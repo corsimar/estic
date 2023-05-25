@@ -1,0 +1,21 @@
+<div class="message" [style]="background">
+  <div class="photo-area">
+    <div class="photo" [style]="getPhoto()"></div>
+  </div>
+  <div class="info">
+    <div class="name-area">
+      <p nz-typography nzEllipsis [nzEllipsisRows]="1">{{ name }}</p>
+    </div>
+    <div class="message-area">
+      <p nz-typography nzEllipsis [nzEllipsisRows]="1" [style]="getStyle()">
+        {{ getText() }}
+      </p>
+    </div>
+    <div class="date-area">
+      <p>{{ chatInfo.dateSent }}</p>
+    </div>
+  </div>
+  <div class="circle-area" [hidden]="read">
+    <div class="circle"></div>
+  </div>
+</div>

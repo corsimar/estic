@@ -1,8 +1,8 @@
-<div class="trait">
+<div class="trait" [style]="style">
   <div class="image">
-    <img [src]="images[index]" width="28px" height="28px" />
+    <img [src]="images[index]" width="28px" height="28px" [style]="cursor" />
   </div>
-  <div class="text-area">
+  <div class="text-area" [style]="cursor">
     <p>{{ traits[index] }}</p>
   </div>
 </div>

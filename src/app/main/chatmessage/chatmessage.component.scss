@@ -1,0 +1,87 @@
+.message {
+  width: 90%;
+  margin-left: 5%;
+  height: 80px;
+  display: flex;
+  border-bottom: 1px solid #cc3b90;
+  cursor: pointer;
+}
+
+.message:hover {
+  background-color: #cc3b9011;
+}
+
+.photo-area {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.info {
+  width: 70%;
+  height: 100%;
+  font-family: Verdana, sans-serif;
+}
+
+.name-area {
+  width: 90%;
+  height: 40%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+}
+
+.message-area {
+  width: 90%;
+  height: 30%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 11px;
+}
+
+.message-area {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date-area {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 10px;
+}
+
+.circle-area {
+  width: 8px;
+  height: 100%;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background-color: #cc3b90;
+}

@@ -1,9 +1,3 @@
-<div class="header">
-  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
-  <div class="navigation">
-    <button class="sign-in" (click)="goToSignIn()">Sign in</button>
-  </div>
-</div>
 <div class="container">
   <form
     nz-form
@@ -25,7 +19,35 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-control
-        nzErrorTip="Password must contain at least 8 characters long, an uppercase, an lowercase, a digit and a special character!"
+        nzErrorTip="Your name must be between 3 and 20 characters long and contain only letters!"
+      >
+        <nz-input-group nzPrefixIcon="profile">
+          <input
+            type="text"
+            nz-input
+            formControlName="lastName"
+            placeholder="Last name"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control
+        nzErrorTip="Your name must be between 3 and 20 characters long and contain only letters!"
+      >
+        <nz-input-group nzPrefixIcon="profile">
+          <input
+            type="text"
+            nz-input
+            formControlName="firstName"
+            placeholder="First name"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control
+        nzErrorTip="Password must contain at least 8 characters long, an uppercase, an lowercase and a digit!"
       >
         <nz-input-group nzPrefixIcon="lock">
           <input
@@ -58,12 +80,13 @@
             nzPlaceHolder="Gender"
             (ngModelChange)="(null)"
           >
-            <nz-option nzValue="male" nzLabel="Male"></nz-option>
-            <nz-option nzValue="female" nzLabel="Female"></nz-option>
+            <nz-option nzValue="Male" nzLabel="Male"></nz-option>
+            <nz-option nzValue="Female" nzLabel="Female"></nz-option>
           </nz-select>
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
+    <p class="error">{{ error }}</p>
     <button
       nz-button
       class="login-form-button login-form-margin"

@@ -1,27 +1,132 @@
-<div class="header">
-  <div class="app-title"><p (click)="goHome()">MatchNow</p></div>
-  <div class="navigation">
-    <div
-      [hidden]="!isSignedIn()"
-      class="profile-photo"
-      (click)="goToProfile()"
-    ></div>
-  </div>
+<div class="info-text" [hidden]="started">
+  <h1>{{ titleText }}</h1>
 </div>
-<div class="info-text">
-  <h1><b>Complete this form to find a matching person </b></h1>
+<p class="tip-message" [hidden]="!isFormStarted()">{{ tipMessage }}</p>
+<div class="form" [hidden]="!isFormStarted()">
+  <form [formGroup]="matchForm">
+    <nz-select
+      formControlName="gender"
+      nzAllowClear
+      nzPlaceHolder="Select gender"
+      [hidden]="hide(0)"
+    >
+      <nz-option nzValue="Male" nzLabel="Male"></nz-option>
+      <nz-option nzValue="Female" nzLabel="Female"></nz-option>
+    </nz-select>
+    <input
+      nz-input
+      formControlName="age"
+      placeholder="Select age range"
+      [hidden]="hide(1)"
+    />
+    <input
+      nz-input
+      formControlName="height"
+      placeholder="Select height range"
+      [hidden]="hide(2)"
+    />
+    <input
+      nz-input
+      formControlName="weight"
+      placeholder="Select weight range"
+      [hidden]="hide(3)"
+    />
+    <nz-select
+      formControlName="eyeColor"
+      nzAllowClear
+      nzPlaceHolder="Select eye color"
+      [hidden]="hide(4)"
+    >
+      <nz-option nzValue="null" nzLabel="Doesn't matter"></nz-option>
+      <nz-option nzValue="Brown" nzLabel="Brown"></nz-option>
+      <nz-option nzValue="Blue" nzLabel="Blue"></nz-option>
+      <nz-option nzValue="Green" nzLabel="Green"></nz-option>
+      <nz-option nzValue="Gray" nzLabel="Gray"></nz-option>
+      <nz-option nzValue="Hazel" nzLabel="Hazel"></nz-option>
+    </nz-select>
+    <nz-select
+      formControlName="hairColor"
+      nzAllowClear
+      nzPlaceHolder="Select hair color"
+      [hidden]="hide(5)"
+    >
+      <nz-option nzValue="null" nzLabel="Doesn't matter"></nz-option>
+      <nz-option nzValue="Blonde" nzLabel="Blonde"></nz-option>
+      <nz-option nzValue="Brunette" nzLabel="Brunette"></nz-option>
+      <nz-option nzValue="Red" nzLabel="Red"></nz-option>
+      <nz-option nzValue="Black" nzLabel="Black"></nz-option>
+    </nz-select>
+    <nz-select
+      formControlName="tattoo"
+      nzAllowClear
+      nzPlaceHolder="Select an option"
+      [hidden]="hide(6)"
+    >
+      <nz-option nzValue="null" nzLabel="Doesn't matter"></nz-option>
+      <nz-option nzValue="Yes" nzLabel="Yes"></nz-option>
+      <nz-option nzValue="No" nzLabel="No"></nz-option>
+    </nz-select>
+    <nz-transfer
+      [nzDataSource]="hobbiesList"
+      [nzTitles]="['Hobbies']"
+      style="font-family: Verdana, sans-serif"
+      [hidden]="hide(8)"
+      style="width: 400px"
+    ></nz-transfer>
+    <nz-transfer
+      [nzDataSource]="sportsList"
+      [nzTitles]="['Sports']"
+      style="font-family: Verdana, sans-serif"
+      [hidden]="hide(9)"
+      style="width: 400px"
+    ></nz-transfer>
+    <nz-transfer
+      [nzDataSource]="musicList"
+      [nzTitles]="['Music genres']"
+      style="font-family: Verdana, sans-serif"
+      [hidden]="hide(10)"
+      style="width: 400px"
+    ></nz-transfer>
+  </form>
 </div>
-<div class="form">
-  <nz-select
-    style="width: 250px"
-    nzAllowClear
-    nzPlaceHolder="Select gender"
-    (ng-change)="selectGender($event)"
+<div [hidden]="hide(7)" class="personality-area" id="personalityTraits">
+  <app-trait
+    *ngFor="let trait of personalityTraits; let i = index"
+    [index]="i"
+    [id]="i"
+    (click)="selectPersonality($event)"
+  ></app-trait>
+</div>
+<p class="error-message">{{ errorMessage }}</p>
+<div class="next-btn" id="nextBtn">
+  <button (click)="previous()" [hidden]="!previousValid || !isFormStarted()">
+    Previous
+  </button>
+  <button (click)="advance()" [hidden]="findMatch || !isFormStarted()">
+    {{ nextBtnText }}
+  </button>
+  <button (click)="goToProfile()" [hidden]="profileCompleted">
+    Set up profile
+  </button>
+  <button
+    (click)="startForm()"
+    [hidden]="isFormStarted() || matchesAvailable == 0 || !profileCompleted"
   >
-    <nz-option nzValue="male" nzLabel="Male"></nz-option>
-    <nz-option nzValue="female" nzLabel="Female"></nz-option>
-  </nz-select>
+    Start form
+  </button>
+  <button (click)="goHome()" [hidden]="!back">Home</button>
 </div>
-<div class="next-btn">
-  <button (click)="advance()">Next</button>
+<div
+  style="width: 100%; margin-top: 50px; display: flex; justify-content: center"
+  [hidden]="percentage == 100 || !profileCompleted"
+>
+  <div style="width: 160px">
+    <nz-progress
+      [nzPercent]="percentage"
+      [nzStrokeColor]="appColor"
+      nzSize="small"
+      style="width: 160px"
+      [hidden]="!isFormStarted()"
+    ></nz-progress>
+  </div>
 </div>

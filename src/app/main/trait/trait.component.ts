@@ -7,6 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TraitComponent implements OnInit {
   @Input() index: any;
+  @Input() text: string = '';
+  @Input() selected: boolean = false;
+  @Input() cursor: string = 'cursor: pointer;';
+
+  style: string;
 
   traits = [
     'Adventurous',
@@ -57,5 +62,13 @@ export class TraitComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.text !== '') {
+      this.index = this.traits.indexOf(this.text);
+    }
+    if (this.selected) {
+      this.style =
+        'background-color: #cc3b9025; border: 1px solid #cc3b90; padding: 0px 8px 0px 8px';
+    }
+  }
 }

@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,14 +31,7 @@ export class LoginComponent implements OnInit {
   buildForm() {
     this.validateForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(8),
-          passwordStrengthValidator(),
-        ],
-      ],
+      password: [null, [Validators.required, Validators.minLength(8)]],
       remember: [null],
     });
   }
@@ -50,20 +44,16 @@ export class LoginComponent implements OnInit {
     return this.validateForm.get('password') as FormControl;
   }
 
+  get remember(): FormControl {
+    return this.validateForm.get('remember') as FormControl;
+  }
+
   validForm() {
     return this.validateForm.valid;
   }
 
-  goHome() {
-    this.router.navigate(['/app/index']);
-  }
-
   goToSignUp() {
     this.router.navigate(['/auth/register']);
-  }
-
-  goToSignIn() {
-    this.router.navigate(['/auth/login']);
   }
 
   submitForm(): void {
@@ -74,11 +64,21 @@ export class LoginComponent implements OnInit {
       password: this.password.value,
     };
 
-    /*this.authService.login(payload).subscribe({
+    this.authService.login(payload).subscribe({
       next: (response) => {
-        window.localStorage['token'] = response.token;
+        const resp = JSON.parse(response);
+        if (this.remember.value == true) {
+          window.localStorage['rememberMe'] = true;
+        }
+        window.localStorage['token'] = resp.token;
+        window.localStorage['userId'] = resp.userId;
+        window.sessionStorage['session'] = true;
+        window.sessionStorage.setItem('refresh', 'true');
         this.router.navigate(['/app/index']);
       },
-    });*/
+      error: (response) => {
+        this.error = response.error;
+      },
+    });
   }
 }
